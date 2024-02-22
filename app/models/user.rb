@@ -7,6 +7,7 @@
 #  email                  :citext           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  likes_count            :integer          default(0)
+#  photos_count           :integer          default(0)
 #  private                :boolean
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
@@ -29,4 +30,8 @@ class User < ApplicationRecord
 
   has_many :own_photos, class_name: "Photo", foreign_key: "owner_id"
   has_many :comments, foreign_key: "author_id"
+  has_many :sent_follow_requests, foreign_key: :sender_id, class_name: "FollowRequest"
+  has_many :received_follow_requests, foreign_key: :recipient_id, class_name: "FollowRequests"
+  has_many :likes, foreign_key: "fan_id"
+  
 end
